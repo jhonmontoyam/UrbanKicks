@@ -2,8 +2,8 @@
 
 ## Participantes y Roles Iniciales
 *   **[jhonmontoyam]** - Desarrollador
-*   **[HugoAndres23]** - Desarrollador
-*   **[Killingham]** - Lider
+*   **[HugoAndres23]** - Lider
+*   **[Killingham]** - Desarrollador
 
 ## Descripción del Problema
 En el comercio electrónico actual, los usuarios se enfrentan a catálogos masivos que dificultan la toma de decisiones, lo que resulta en altas tasas de abandono de carritos y pérdida de fidelización. Además, las plataformas tradicionales basadas únicamente en bases de datos relacionales sufren cuellos de botella al intentar ofrecer catálogos con atributos dinámicos y analizar el comportamiento en tiempo real. 
