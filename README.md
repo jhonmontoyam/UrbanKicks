@@ -47,4 +47,4 @@ En el desarrollo de este proyecto, los asistentes de Inteligencia Artificial se 
 *   **Estructuración:** Apoyo en el diseño de los esquemas relacionales y documentales.
 *   **Generación de Datos:** Creación de scripts de *mock data* (datos falsos) masivos para pruebas de carga en las bases de datos.
 *   **Optimización:** Refactorización de consultas SQL complejas o pipelines de agregación NoSQL.
-*   **Restricción:** Ningún bloque de código o consulta generada por IA será integrada en la rama principal (`main`) sin ser previamente auditada, entendida y probada por los miembros del equipo. Test
+*   **Restricción:** Ningún bloque de código o consulta generada por IA será integrada en la rama principal (`main`) sin ser previamente auditada, entendida y probada por los miembros del equipo.

@@ -1,0 +1,22 @@
+# Archivos de entorno y credenciales sensibles
+.env
+*.env
+!.env.example
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema Operativo
+Thumbs.db
+Desktop.ini
+.DS_Store
