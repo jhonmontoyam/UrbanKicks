@@ -1,0 +1,109 @@
+# ============================================================
+# ARCHIVO: app/services/auth_service.py
+# PROPÓSITO: Capa de servicio para la autenticación.
+#            Contiene toda la lógica de negocio relacionada con:
+#            - Verificación de contraseñas con bcrypt
+#            - Autenticación de usuarios admin
+#            - Generación y validación de tokens JWT
+#            - Dependencia de seguridad reutilizable para rutas protegidas
+# ============================================================
+
+from datetime import datetime, timedelta, timezone
+
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+
+from app.config import settings
+from app.schemas.auth import TokenData
+
+# ----------------------------------------------------------
+# Contexto de hashing: usa bcrypt como algoritmo.
+# "deprecated='auto'" actualiza automáticamente hashes viejos.
+# ----------------------------------------------------------
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# ----------------------------------------------------------
+# Esquema de seguridad HTTP Bearer.
+# FastAPI lo expone en /docs como candado de autorización.
+# ----------------------------------------------------------
+bearer_scheme = HTTPBearer()
+
+
+# ----------------------------------------------------------
+# FUNCIÓN: verify_password
+# Compara la contraseña en texto plano con el hash almacenado.
+# ----------------------------------------------------------
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """
+    Retorna True si la contraseña coincide con el hash bcrypt.
+    """
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+# ----------------------------------------------------------
+# FUNCIÓN: authenticate_user
+# Verifica que username y password sean válidos para el admin.
+# Actualmente consulta .env; migrar a BD cuando exista admin_users.
+# ----------------------------------------------------------
+def authenticate_user(username: str, password: str) -> bool:
+    """
+    Retorna True si las credenciales son correctas.
+    La comparación de username es case-insensitive.
+    """
+    if username.lower() != settings.admin_username.lower():
+        return False
+    if not settings.admin_password_hash:
+        return False
+    return verify_password(password, settings.admin_password_hash)
+
+
+# ----------------------------------------------------------
+# FUNCIÓN: create_access_token
+# Genera un token JWT firmado con HS256 y una fecha de expiración.
+# ----------------------------------------------------------
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
+    """
+    Crea y retorna un JWT firmado.
+    'data' debe contener al menos {'sub': username}.
+    """
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + (
+        expires_delta if expires_delta
+        else timedelta(minutes=settings.jwt_expire_minutes)
+    )
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, settings.jwt_secret_key, algorithm=settings.jwt_algorithm)
+
+
+# ----------------------------------------------------------
+# DEPENDENCIA: get_current_user
+# Se inyecta en rutas protegidas con Depends(get_current_user).
+# Decodifica el Bearer token y retorna el payload TokenData.
+# Lanza HTTP 401 si el token es inválido o expirado.
+# ----------------------------------------------------------
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
+) -> TokenData:
+    """
+    Dependencia de seguridad FastAPI.
+    Extrae y valida el JWT del header Authorization: Bearer <token>.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Token inválido o expirado. Vuelve a iniciar sesión.",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(
+            credentials.credentials,
+            settings.jwt_secret_key,
+            algorithms=[settings.jwt_algorithm],
+        )
+        subject: str | None = payload.get("sub")
+        if subject is None:
+            raise credentials_exception
+        return TokenData(sub=subject)
+    except JWTError:
+        raise credentials_exception
