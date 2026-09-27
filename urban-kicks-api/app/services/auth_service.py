@@ -13,17 +13,11 @@ from datetime import datetime, timedelta, timezone
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+import bcrypt
 
 from app.config import settings
 from app.schemas.auth import TokenData
 from app.database import get_connection
-
-# ----------------------------------------------------------
-# Contexto de hashing: usa bcrypt como algoritmo.
-# "deprecated='auto'" actualiza automáticamente hashes viejos.
-# ----------------------------------------------------------
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # ----------------------------------------------------------
 # Esquema de seguridad HTTP Bearer.
@@ -40,7 +34,13 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     """
     Retorna True si la contraseña coincide con el hash bcrypt.
     """
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        # Asegurar que el hash de la BD no tenga espacios extra (strip)
+        # bcrypt.checkpw requiere que ambos parámetros sean bytes
+        return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.strip().encode('utf-8'))
+    except Exception as e:
+        print(f"Error en verify_password: {e}")
+        return False
 
 
 # ----------------------------------------------------------
