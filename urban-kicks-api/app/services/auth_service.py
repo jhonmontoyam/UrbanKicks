@@ -17,6 +17,7 @@ from passlib.context import CryptContext
 
 from app.config import settings
 from app.schemas.auth import TokenData
+from app.database import get_connection
 
 # ----------------------------------------------------------
 # Contexto de hashing: usa bcrypt como algoritmo.
@@ -49,14 +50,41 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 # ----------------------------------------------------------
 def authenticate_user(username: str, password: str) -> bool:
     """
-    Retorna True si las credenciales son correctas.
-    La comparación de username es case-insensitive.
+    Retorna True si las credenciales son correctas (consultando la base de datos).
+    El username corresponde al email del empleado.
     """
-    if username.lower() != settings.admin_username.lower():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        query = "SELECT password_hash, activo FROM dbo.empleados WHERE email = ?"
+        cursor.execute(query, (username,))
+        row = cursor.fetchone()
+        
+        if not row:
+            return False
+            
+        password_hash_db, activo = row
+        
+        if not activo:
+            return False
+            
+        is_valid = verify_password(password, password_hash_db)
+        
+        # Opcional: Actualizar el último acceso si fue exitoso
+        if is_valid:
+            update_query = "UPDATE dbo.empleados SET ultimo_login = GETDATE() WHERE email = ?"
+            cursor.execute(update_query, (username,))
+            conn.commit()
+            
+        return is_valid
+        
+    except Exception as e:
+        print(f"Error en authenticate_user: {e}")
         return False
-    if not settings.admin_password_hash:
-        return False
-    return verify_password(password, settings.admin_password_hash)
+    finally:
+        if 'conn' in locals():
+            conn.close()
 
 
 # ----------------------------------------------------------

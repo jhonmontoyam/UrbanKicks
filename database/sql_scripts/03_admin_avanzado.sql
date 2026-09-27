@@ -21,10 +21,13 @@ CREATE TABLE dbo.roles (
 );
 
 CREATE TABLE dbo.empleados (
-    empleado_id INT IDENTITY(1,1) PRIMARY KEY,
-    nombre      NVARCHAR(100) NOT NULL,
-    email       NVARCHAR(200) NOT NULL UNIQUE,
-    activo      BIT DEFAULT 1
+    empleado_id   INT IDENTITY(1,1) PRIMARY KEY,
+    nombre        NVARCHAR(100) NOT NULL,
+    email         NVARCHAR(200) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL, -- Almacenará el hash de bcrypt
+    activo        BIT DEFAULT 1,
+    ultimo_login  DATETIME NULL,         -- Registro del último acceso
+    creado_en     DATETIME DEFAULT GETDATE()
 );
 
 CREATE TABLE dbo.empleados_roles (
@@ -42,13 +45,17 @@ INSERT INTO dbo.roles (nombre, descripcion) VALUES
 ('GestorInventario', 'Administra productos en MongoDB y ajusta stock'), 
 ('Vendedor', 'Gestiona órdenes, despachos y atención al cliente');
 
-INSERT INTO dbo.empleados (nombre, email) VALUES 
-('Ana Directora', 'ana@urbankicks.com'), 
-('Luis Bodega', 'luis@urbankicks.com');
+-- Insertamos empleados con una contraseña por defecto: "admin12345"
+-- El hash bcrypt para "admin12345" (ejemplo): $2b$12$ewkxdRSKOn9eEVUzPLuTDuIvHeSxnpN29HaXwclGhhT3x.9vqS8TS
+INSERT INTO dbo.empleados (nombre, email, password_hash) VALUES 
+('Hugo Andrés Casas', 'hcasas@urbankicks.com', '$2b$12$ewkxdRSKOn9eEVUzPLuTDuIvHeSxnpN29HaXwclGhhT3x.9vqS8TS'), 
+('Carlos Andrés Moreno', 'cmoreno@urbankicks.com', '$2b$12$ewkxdRSKOn9eEVUzPLuTDuIvHeSxnpN29HaXwclGhhT3x.9vqS8TS'),
+('Jhon Alexander Montoya', 'jmontoya@urbankicks.com', '$2b$12$ewkxdRSKOn9eEVUzPLuTDuIvHeSxnpN29HaXwclGhhT3x.9vqS8TS');
 
 INSERT INTO dbo.empleados_roles (empleado_id, rol_id) VALUES 
-(1, 1), -- Ana es SuperAdmin
-(2, 2); -- Luis es GestorInventario
+(1, 1), -- Hugo Andrés Casas es SuperAdmin
+(2, 2), -- Carlos Andrés Moreno es GestorInventario
+(3, 3); -- Jhon Alexander Montoya es Vendedor
 GO
 
 
