@@ -49,7 +49,7 @@ DB_DRIVER=ODBC Driver 17 for SQL Server
 
 ### 5. Iniciar el servidor local
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app
 ```
 
 ---
