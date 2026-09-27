@@ -83,7 +83,33 @@ def authenticate_user(username: str, password: str) -> bool:
         print(f"Error en authenticate_user: {e}")
         return False
     finally:
-        if 'conn' in locals():
+        if 'conn' in locals() and conn:
+            conn.close()
+
+# ----------------------------------------------------------
+# FUNCIÓN: get_user_roles
+# Obtiene la lista de nombres de roles de un usuario
+# ----------------------------------------------------------
+def get_user_roles(email: str) -> list[str]:
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        query = """
+        SELECT r.nombre 
+        FROM dbo.roles r
+        JOIN dbo.empleados_roles er ON r.rol_id = er.rol_id
+        JOIN dbo.empleados e ON er.empleado_id = e.empleado_id
+        WHERE e.email = ?
+        """
+        cursor.execute(query, (email,))
+        rows = cursor.fetchall()
+        return [row.nombre for row in rows]
+    except Exception as e:
+        print(f"Error en get_user_roles: {e}")
+        return []
+    finally:
+        if 'conn' in locals() and conn:
             conn.close()
 
 
@@ -130,8 +156,9 @@ def get_current_user(
             algorithms=[settings.jwt_algorithm],
         )
         subject: str | None = payload.get("sub")
+        roles: list[str] = payload.get("roles", [])
         if subject is None:
             raise credentials_exception
-        return TokenData(sub=subject)
+        return TokenData(sub=subject, roles=roles)
     except JWTError:
         raise credentials_exception

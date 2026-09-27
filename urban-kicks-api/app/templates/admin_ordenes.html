@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="Gestión de Órdenes - Urban Kicks Admin" />
+  <title>Urban Kicks Admin — Órdenes</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/unpack-tailwindcss-3.4.17@3.4.17/dist/tailwindcss-3.4.17.min.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#e5e2e1",
+            "acid-green": "#B8FF3D",
+            "on-surface": "#1c1b1b",
+            "background": "#fdf8f8",
+            "surface-container": "#f1edec",
+            "surface-container-lowest": "#ffffff",
+            "secondary": "#5e5e5d",
+            "metadata-gray": "#8C8C8C",
+            "surface-container-low": "#f7f3f2",
+            "primary": "#000000"
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "full": "9999px" },
+          spacing: { "margin-mobile": "16px", "gutter": "24px", "unit": "8px", "margin-desktop": "48px" },
+          fontFamily: {
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["Inter"],
+            "mono-metadata": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Space Grotesk"]
+          },
+          fontSize: {
+            "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "500" }],
+            "label-sm": ["12px", { lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "600" }],
+            "mono-metadata": ["11px", { lineHeight: "1.4", letterSpacing: "0.02em", fontWeight: "400" }],
+            "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+            "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between selection:bg-acid-green selection:text-primary">
+
+  <!-- ===== HEADER ===== -->
+  <header class="w-full pt-gutter px-margin-mobile md:px-margin-desktop">
+    <div class="w-full flex items-center justify-between border-b border-surface-container-highest pb-unit">
+      <div class="flex items-center gap-unit">
+        <a href="/admin/dashboard" class="flex items-center gap-2 hover:text-secondary transition-colors">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            <span class="font-headline-md text-headline-md uppercase tracking-tight text-primary">URBAN KICKS</span>
+        </a>
+        <span class="font-mono-metadata text-mono-metadata text-metadata-gray uppercase tracking-wider pl-unit border-l border-surface-container-highest hidden sm:inline-block">ÓRDENES</span>
+      </div>
+      <div class="flex items-center gap-gutter">
+        <div class="flex items-center gap-unit bg-surface-container px-unit py-1 rounded">
+          <span class="w-1.5 h-1.5 rounded-full bg-acid-green animate-pulse"></span>
+          <span class="font-mono-metadata text-mono-metadata uppercase tracking-widest text-on-surface font-semibold">
+            {{ username }}
+          </span>
+        </div>
+        <a href="/admin/logout" class="font-mono-metadata text-mono-metadata uppercase tracking-wider text-secondary hover:text-primary transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-base">logout</span>
+          <span class="hidden sm:inline">CERRAR SESIÓN</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="w-full flex-1 px-margin-mobile md:px-margin-desktop py-gutter">
+    <div class="w-full max-w-6xl mx-auto py-gutter md:py-margin-desktop flex flex-col gap-gutter">
+
+      <div class="flex flex-col gap-unit">
+        <span class="font-mono-metadata text-mono-metadata uppercase tracking-wider text-metadata-gray">MÓDULO DE GESTIÓN</span>
+        <h1 class="font-headline-lg text-headline-lg text-primary uppercase tracking-tight">ÓRDENES DE COMPRA</h1>
+        <p class="font-body-md text-body-md text-secondary">
+          Visualiza, filtra y administra los pedidos realizados por los clientes.
+        </p>
+      </div>
+
+      <!-- Controles: Filtros y Estados -->
+      <div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg p-gutter shadow-sm flex flex-wrap gap-4 items-end">
+        <div class="flex flex-col gap-1 w-full sm:w-auto">
+            <label class="font-label-sm text-label-sm uppercase tracking-wider text-metadata-gray">Estado</label>
+            <select id="filterEstado" class="bg-surface-container border border-surface-container-highest rounded px-3 py-2 text-sm outline-none focus:border-primary">
+                <option value="TODOS">Todos los estados</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Procesando">Procesando</option>
+                <option value="Enviado">Enviado</option>
+                <option value="Entregado">Entregado</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+        </div>
+        <button id="btnRefresh" class="bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider px-6 py-2 rounded hover:bg-secondary transition-colors flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">refresh</span>
+            ACTUALIZAR
+        </button>
+      </div>
+
+      <!-- Tabla de Órdenes -->
+      <div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg shadow-sm overflow-hidden flex flex-col">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-low border-b border-surface-container-highest">
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">ID</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Cliente</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Fecha</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Total (COP)</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Estado</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="font-body-md text-sm divide-y divide-surface-container-highest">
+                    <tr>
+                        <td colspan="6" class="p-8 text-center text-secondary flex-col items-center justify-center">
+                            <span class="material-symbols-outlined text-4xl mb-2 animate-spin">progress_activity</span>
+                            <p>Cargando órdenes...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="bg-surface-container-low p-4 border-t border-surface-container-highest flex justify-between items-center text-sm text-secondary">
+            <span id="pageInfo">Mostrando 0 resultados</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modal Detalles de Orden (Hidden by default) -->
+  <div id="orderModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-primary/50 backdrop-blur-sm p-4">
+    <div class="bg-background border border-surface-container-highest rounded-lg shadow-xl w-full max-w-3xl flex flex-col max-h-[90vh]">
+        <div class="flex items-center justify-between p-gutter border-b border-surface-container-highest">
+            <h2 class="font-headline-md text-headline-md uppercase text-primary">Detalle de Orden <span id="modalOrderId" class="text-metadata-gray"></span></h2>
+            <button id="closeModalBtn" class="text-secondary hover:text-primary">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="p-gutter overflow-y-auto flex-1 flex flex-col gap-6">
+            <div id="modalLoading" class="text-center py-10 text-secondary">
+                <span class="material-symbols-outlined text-4xl animate-spin">progress_activity</span>
+            </div>
+            <div id="modalContent" class="hidden flex-col gap-6">
+                <!-- Info Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-surface-container-low p-4 rounded border border-surface-container-highest">
+                        <h3 class="font-label-sm text-label-sm uppercase text-secondary mb-2">Cliente</h3>
+                        <p id="modalClientName" class="font-semibold text-primary"></p>
+                        <p id="modalClientEmail" class="text-sm text-secondary"></p>
+                    </div>
+                    <div class="bg-surface-container-low p-4 rounded border border-surface-container-highest">
+                        <h3 class="font-label-sm text-label-sm uppercase text-secondary mb-2">Envío</h3>
+                        <p id="modalAddress" class="font-medium text-primary"></p>
+                        <p id="modalCity" class="text-sm text-secondary"></p>
+                    </div>
+                </div>
+                <!-- Items Table -->
+                <h3 class="font-label-sm text-label-sm uppercase text-secondary border-b border-surface-container-highest pb-2">Artículos</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="text-secondary font-label-sm uppercase">
+                                <th class="pb-2">SKU</th>
+                                <th class="pb-2 text-right">Cant.</th>
+                                <th class="pb-2 text-right">Precio Un.</th>
+                                <th class="pb-2 text-right">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalItemsBody" class="divide-y divide-surface-container">
+                            <!-- Items go here -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="font-semibold text-primary text-base">
+                                <td colspan="3" class="pt-4 text-right uppercase">Total:</td>
+                                <td class="pt-4 text-right text-acid-green font-headline-md" style="color: #000; background-color: #B8FF3D; padding: 4px 8px; border-radius: 4px; display: inline-block; margin-top: 12px; margin-left: 12px;" id="modalTotal"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- Action Form -->
+                <div class="bg-surface-container-lowest border-t border-surface-container-highest pt-4 mt-2">
+                    <h3 class="font-label-sm text-label-sm uppercase text-secondary mb-3">Gestión de Orden</h3>
+                    <div class="flex flex-col sm:flex-row gap-4 items-end">
+                        <div class="flex-1 w-full">
+                            <label class="font-mono-metadata text-metadata-gray uppercase text-xs">Estado</label>
+                            <select id="updateEstado" class="w-full bg-surface-container border border-surface-container-highest rounded px-3 py-2 text-sm outline-none focus:border-primary mt-1">
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Pagado">Pagado</option>
+                                <option value="Enviado">Enviado</option>
+                                <option value="Entregado">Entregado</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="flex-1 w-full">
+                            <label class="font-mono-metadata text-metadata-gray uppercase text-xs">Notas</label>
+                            <input type="text" id="updateNotas" class="w-full bg-surface-container border border-surface-container-highest rounded px-3 py-2 text-sm outline-none focus:border-primary mt-1" placeholder="Ej. Dejar en portería...">
+                        </div>
+                        <button id="btnSaveEstado" class="bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider px-6 py-2 rounded hover:bg-secondary transition-colors h-[38px] flex items-center gap-2 whitespace-nowrap">
+                            <span class="material-symbols-outlined text-sm">save</span>
+                            GUARDAR
+                        </button>
+                    </div>
+                    <div id="updateMsg" class="font-mono-metadata text-sm mt-2 hidden"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="w-full pb-gutter px-margin-mobile md:px-margin-desktop mt-auto">
+    <div class="w-full flex flex-col sm:flex-row items-center justify-between border-t border-surface-container-highest pt-unit gap-unit">
+      <span class="font-mono-metadata text-mono-metadata uppercase tracking-wider text-metadata-gray">URBAN KICKS INTERNAL PLATFORM // V2.4 // RESTRICTED ACCESS</span>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tableBody = document.getElementById("tableBody");
+        const pageInfo = document.getElementById("pageInfo");
+        const btnRefresh = document.getElementById("btnRefresh");
+        const filterEstado = document.getElementById("filterEstado");
+        
+        const orderModal = document.getElementById("orderModal");
+        const closeModalBtn = document.getElementById("closeModalBtn");
+        const modalLoading = document.getElementById("modalLoading");
+        const modalContent = document.getElementById("modalContent");
+        const btnSaveEstado = document.getElementById("btnSaveEstado");
+        const updateEstado = document.getElementById("updateEstado");
+        const updateNotas = document.getElementById("updateNotas");
+        const updateMsg = document.getElementById("updateMsg");
+        
+        let currentOrderId = null;
+        
+        // Obtener el JWT de la cookie
+        const getCookie = (name) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        };
+
+        const token = getCookie("uk_admin_token");
+        if (!token) {
+            window.location.href = "/admin/login";
+            return;
+        }
+
+        let allOrders = [];
+
+        const fetchOrders = async () => {
+            try {
+                tableBody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-secondary"><span class="material-symbols-outlined text-4xl mb-2 animate-spin">progress_activity</span><p>Cargando órdenes...</p></td></tr>`;
+                
+                const response = await fetch("/api/v1/admin/ordenes", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (response.status === 401) {
+                    window.location.href = "/admin/login";
+                    return;
+                }
+
+                if (!response.ok) throw new Error("Error al obtener las órdenes");
+
+                allOrders = await response.json();
+                renderTable();
+            } catch (error) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-error font-semibold"><span class="material-symbols-outlined text-4xl mb-2">error</span><p>Error de conexión al cargar órdenes.</p></td></tr>`;
+            }
+        };
+
+        const renderTable = () => {
+            const estadoFilter = filterEstado.value;
+            const filteredOrders = estadoFilter === "TODOS" ? allOrders : allOrders.filter(o => o.estado === estadoFilter);
+            
+            tableBody.innerHTML = "";
+            
+            if (filteredOrders.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-secondary">No se encontraron órdenes.</td></tr>`;
+                pageInfo.textContent = "Mostrando 0 resultados";
+                return;
+            }
+
+            filteredOrders.forEach(orden => {
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-surface-container-low transition-colors cursor-pointer";
+                tr.onclick = (e) => {
+                    if(e.target.closest('button')) return;
+                    openModal(orden.id);
+                };
+                
+                const formatCurrency = (val) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(val);
+                const formatDate = (dateStr) => dateStr ? new Date(dateStr).toLocaleDateString('es-CO') : 'N/A';
+                
+                let badgeClass = "bg-surface-container text-secondary";
+                if(orden.estado === "Pendiente") badgeClass = "bg-surface-container-highest text-primary";
+                if(orden.estado === "Procesando") badgeClass = "bg-neutral-gray text-primary";
+                if(orden.estado === "Enviado") badgeClass = "bg-acid-green text-primary";
+                if(orden.estado === "Entregado") badgeClass = "bg-primary text-acid-green";
+                if(orden.estado === "Cancelado") badgeClass = "bg-error-container text-error";
+
+                tr.innerHTML = `
+                    <td class="p-4 font-mono-metadata text-metadata-gray">#${orden.id}</td>
+                    <td class="p-4">
+                        <div class="font-semibold text-primary">${orden.cliente_nombre}</div>
+                        <div class="text-xs text-secondary">${orden.cliente_email}</div>
+                    </td>
+                    <td class="p-4 text-secondary">${formatDate(orden.fecha_creacion)}</td>
+                    <td class="p-4 font-semibold">${formatCurrency(orden.total_cop)}</td>
+                    <td class="p-4">
+                        <span class="px-2 py-1 rounded text-xs font-label-sm uppercase tracking-wider ${badgeClass}">${orden.estado}</span>
+                    </td>
+                    <td class="p-4 text-right">
+                        <button onclick="openModal(${orden.id})" class="text-secondary hover:text-primary p-2">
+                            <span class="material-symbols-outlined text-xl">visibility</span>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+            
+            pageInfo.textContent = `Mostrando ${filteredOrders.length} resultados`;
+        };
+
+        const openModal = async (id) => {
+            orderModal.classList.remove("hidden");
+            orderModal.classList.add("flex");
+            modalLoading.classList.remove("hidden");
+            modalContent.classList.add("hidden");
+            document.getElementById("modalOrderId").textContent = `#${id}`;
+            
+            try {
+                const response = await fetch(`/api/v1/admin/ordenes/${id}`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                
+                if (response.status === 401) {
+                    window.location.href = "/admin/login";
+                    return;
+                }
+                
+                if (!response.ok) throw new Error("Error al obtener detalle");
+                
+                const data = await response.json();
+                currentOrderId = id;
+                
+                // Reset form
+                updateMsg.classList.add("hidden");
+                updateMsg.textContent = "";
+                updateEstado.value = data.orden.estado;
+                updateNotas.value = data.orden.notas || "";
+                
+                document.getElementById("modalClientName").textContent = data.orden.cliente.nombre;
+                document.getElementById("modalClientEmail").textContent = data.orden.cliente.email;
+                document.getElementById("modalAddress").textContent = data.orden.direccion.direccion;
+                document.getElementById("modalCity").textContent = `${data.orden.direccion.ciudad}, ${data.orden.direccion.departamento}`;
+                
+                const formatCurrency = (val) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(val);
+                document.getElementById("modalTotal").textContent = formatCurrency(data.orden.total_cop);
+                
+                const tbody = document.getElementById("modalItemsBody");
+                tbody.innerHTML = "";
+                data.items.forEach(item => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td class="py-3 font-mono-metadata text-primary">${item.variante_sku}</td>
+                        <td class="py-3 text-right">${item.cantidad}</td>
+                        <td class="py-3 text-right text-secondary">${formatCurrency(item.precio_unitario_cop)}</td>
+                        <td class="py-3 text-right font-semibold">${formatCurrency(item.subtotal_cop)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                
+                modalLoading.classList.add("hidden");
+                modalContent.classList.remove("hidden");
+                modalContent.classList.add("flex");
+            } catch (error) {
+                modalLoading.innerHTML = `<span class="material-symbols-outlined text-4xl mb-2 text-error">error</span><p class="text-error">No se pudo cargar el detalle.</p>`;
+            }
+        };
+
+        const closeModal = () => {
+            orderModal.classList.add("hidden");
+            orderModal.classList.remove("flex");
+        };
+
+        closeModalBtn.addEventListener("click", closeModal);
+        orderModal.addEventListener("click", (e) => {
+            if(e.target === orderModal) closeModal();
+        });
+        
+        btnRefresh.addEventListener("click", fetchOrders);
+        filterEstado.addEventListener("change", renderTable);
+
+        // Fetch inicial
+        fetchOrders();
+        
+        // Manejo de actualización de estado
+        btnSaveEstado.addEventListener("click", async () => {
+            if (!currentOrderId) return;
+            
+            const originalText = btnSaveEstado.innerHTML;
+            btnSaveEstado.innerHTML = `<span class="material-symbols-outlined text-sm animate-spin">progress_activity</span> GUARDANDO...`;
+            btnSaveEstado.disabled = true;
+            updateMsg.classList.add("hidden");
+            
+            const payload = {
+                estado: updateEstado.value,
+                notas: updateNotas.value.trim() === "" ? null : updateNotas.value.trim()
+            };
+            
+            try {
+                const response = await fetch(`/api/v1/admin/ordenes/${currentOrderId}/estado`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (response.status === 403) {
+                    throw new Error("No tienes permisos para actualizar órdenes.");
+                }
+                if (!response.ok) {
+                    throw new Error("Error al actualizar estado.");
+                }
+                
+                updateMsg.textContent = "¡Orden actualizada exitosamente!";
+                updateMsg.className = "font-mono-metadata text-xs mt-2 text-acid-green bg-primary px-2 py-1 inline-block rounded";
+                updateMsg.classList.remove("hidden");
+                
+                // Recargar listado en fondo
+                fetchOrders();
+            } catch (error) {
+                updateMsg.textContent = error.message;
+                updateMsg.className = "font-mono-metadata text-xs mt-2 text-error bg-error-container px-2 py-1 inline-block rounded";
+                updateMsg.classList.remove("hidden");
+            } finally {
+                btnSaveEstado.innerHTML = originalText;
+                btnSaveEstado.disabled = false;
+            }
+        });
+    });
+  </script>
+</body>
+</html>

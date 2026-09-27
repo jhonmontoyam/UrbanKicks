@@ -78,6 +78,35 @@ def dashboard_page(request: Request, uk_admin_token: str | None = Cookie(default
 
 
 # ----------------------------------------------------------
+# GET /admin/ordenes — Ruta protegida, lista las órdenes
+# ----------------------------------------------------------
+@router.get("/admin/ordenes", response_class=HTMLResponse, include_in_schema=False)
+def ordenes_page(request: Request, uk_admin_token: str | None = Cookie(default=None)):
+    """
+    Renderiza la vista de gestión de órdenes. Requiere JWT válido.
+    """
+    if not uk_admin_token:
+        return RedirectResponse(url="/admin/login", status_code=302)
+
+    try:
+        payload = jwt.decode(
+            uk_admin_token,
+            settings.jwt_secret_key,
+            algorithms=[settings.jwt_algorithm],
+        )
+        username: str = payload.get("sub", "Admin")
+    except JWTError:
+        response = RedirectResponse(url="/admin/login", status_code=302)
+        response.delete_cookie("uk_admin_token")
+        return response
+
+    return templates.TemplateResponse(
+        "admin_ordenes.html",
+        {"request": request, "username": username},
+    )
+
+
+# ----------------------------------------------------------
 # GET /admin/logout — Elimina la cookie y redirige al login
 # ----------------------------------------------------------
 @router.get("/admin/logout", include_in_schema=False)
@@ -88,3 +117,34 @@ def logout():
     response = RedirectResponse(url="/admin/login", status_code=302)
     response.delete_cookie("uk_admin_token")
     return response
+
+# ----------------------------------------------------------
+# GET /admin/auditoria/ordenes — Ruta protegida, auditoría
+# ----------------------------------------------------------
+@router.get("/admin/auditoria/ordenes", response_class=HTMLResponse, include_in_schema=False)
+def auditoria_ordenes_page(request: Request, uk_admin_token: str | None = Cookie(default=None)):
+    """
+    Renderiza la vista de auditoría. Requiere JWT con rol SuperAdmin.
+    """
+    if not uk_admin_token:
+        return RedirectResponse(url="/admin/login", status_code=302)
+
+    try:
+        payload = jwt.decode(
+            uk_admin_token,
+            settings.jwt_secret_key,
+            algorithms=[settings.jwt_algorithm],
+        )
+        username: str = payload.get("sub", "Admin")
+        roles = payload.get("roles", [])
+        if "SuperAdmin" not in roles:
+            return HTMLResponse("<h1>Acceso Denegado</h1><p>Solo SuperAdmin puede ver esta página.</p><a href='/admin/dashboard'>Volver</a>", status_code=403)
+    except JWTError:
+        response = RedirectResponse(url="/admin/login", status_code=302)
+        response.delete_cookie("uk_admin_token")
+        return response
+
+    return templates.TemplateResponse(
+        "admin_auditoria.html",
+        {"request": request, "username": username},
+    )

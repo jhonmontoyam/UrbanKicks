@@ -49,9 +49,12 @@ def login(credentials: LoginRequest) -> TokenResponse:
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    # 2. Crear token JWT con el username como subject
+    # 2. Obtener roles y crear token JWT con el username como subject
+    from app.services.auth_service import get_user_roles
+    roles = get_user_roles(credentials.username)
+    
     access_token = create_access_token(
-        data={"sub": credentials.username},
+        data={"sub": credentials.username, "roles": roles},
         expires_delta=timedelta(minutes=settings.jwt_expire_minutes),
     )
 

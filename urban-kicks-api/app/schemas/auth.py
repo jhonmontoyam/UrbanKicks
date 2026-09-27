@@ -32,3 +32,4 @@ class TokenData(BaseModel):
     'sub' (subject) identifica al usuario autenticado.
     """
     sub: str | None = None
+    roles: list[str] = []

@@ -12,8 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import productos, ordenes, auth, admin_views
-
+from app.routers import productos, ordenes, auth, admin_views, admin_ordenes_api, admin_auditoria_api
 # -------------------------------------------------------
 # Creación de la instancia principal de FastAPI.
 # -------------------------------------------------------
@@ -59,6 +58,8 @@ app.mount("/static", StaticFiles(directory=_static_dir), name="static")
 app.include_router(productos.router,   prefix="/api/v1")
 app.include_router(ordenes.router,     prefix="/api/v1")
 app.include_router(auth.router,        prefix="/api/v1")
+app.include_router(admin_ordenes_api.router, prefix="/api/v1")
+app.include_router(admin_auditoria_api.router, prefix="/api/v1")
 
 # — Vistas HTML admin (sin prefijo — rutas: /admin/login, /admin/dashboard)
 app.include_router(admin_views.router)

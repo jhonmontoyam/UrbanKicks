@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="description" content="Auditoría de Órdenes - Urban Kicks Admin" />
+  <title>Urban Kicks Admin — Auditoría</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/unpack-tailwindcss-3.4.17@3.4.17/dist/tailwindcss-3.4.17.min.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#e5e2e1",
+            "acid-green": "#B8FF3D",
+            "on-surface": "#1c1b1b",
+            "background": "#fdf8f8",
+            "surface-container": "#f1edec",
+            "surface-container-lowest": "#ffffff",
+            "secondary": "#5e5e5d",
+            "metadata-gray": "#8C8C8C",
+            "surface-container-low": "#f7f3f2",
+            "primary": "#000000",
+            "error-container": "#ffdad6",
+            "error": "#ba1a1a"
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "full": "9999px" },
+          spacing: { "margin-mobile": "16px", "gutter": "24px", "unit": "8px", "margin-desktop": "48px" },
+          fontFamily: {
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["Inter"],
+            "mono-metadata": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Space Grotesk"]
+          },
+          fontSize: {
+            "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "500" }],
+            "label-sm": ["12px", { lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "600" }],
+            "mono-metadata": ["11px", { lineHeight: "1.4", letterSpacing: "0.02em", fontWeight: "400" }],
+            "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+            "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-background font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between selection:bg-acid-green selection:text-primary">
+
+  <!-- ===== HEADER ===== -->
+  <header class="w-full pt-gutter px-margin-mobile md:px-margin-desktop">
+    <div class="w-full flex items-center justify-between border-b border-surface-container-highest pb-unit">
+      <div class="flex items-center gap-unit">
+        <a href="/admin/dashboard" class="flex items-center gap-2 hover:text-secondary transition-colors">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            <span class="font-headline-md text-headline-md uppercase tracking-tight text-primary">URBAN KICKS</span>
+        </a>
+        <span class="font-mono-metadata text-mono-metadata text-metadata-gray uppercase tracking-wider pl-unit border-l border-surface-container-highest hidden sm:inline-block">AUDITORÍA</span>
+      </div>
+      <div class="flex items-center gap-gutter">
+        <div class="flex items-center gap-unit bg-surface-container px-unit py-1 rounded">
+          <span class="w-1.5 h-1.5 rounded-full bg-acid-green animate-pulse"></span>
+          <span class="font-mono-metadata text-mono-metadata uppercase tracking-widest text-on-surface font-semibold">
+            {{ username }}
+          </span>
+        </div>
+        <a href="/admin/logout" class="font-mono-metadata text-mono-metadata uppercase tracking-wider text-secondary hover:text-primary transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-base">logout</span>
+          <span class="hidden sm:inline">CERRAR SESIÓN</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="w-full flex-1 px-margin-mobile md:px-margin-desktop py-gutter">
+    <div class="w-full max-w-6xl mx-auto py-gutter md:py-margin-desktop flex flex-col gap-gutter">
+
+      <div class="flex flex-col gap-unit">
+        <span class="font-mono-metadata text-mono-metadata uppercase tracking-wider text-metadata-gray">MÓDULO DE SEGURIDAD</span>
+        <h1 class="font-headline-lg text-headline-lg text-primary uppercase tracking-tight">AUDITORÍA DE ÓRDENES</h1>
+        <p class="font-body-md text-body-md text-secondary">
+          Registro inmutable de los cambios de estado aplicados a las órdenes en base de datos.
+        </p>
+      </div>
+
+      <div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg p-gutter shadow-sm flex flex-wrap gap-4 items-end">
+        <button id="btnRefresh" class="bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider px-6 py-2 rounded hover:bg-secondary transition-colors flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">refresh</span>
+            ACTUALIZAR LOG
+        </button>
+      </div>
+
+      <!-- Tabla de Logs -->
+      <div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg shadow-sm overflow-hidden flex flex-col">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-low border-b border-surface-container-highest">
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Log ID</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Orden ID</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Cambio de Estado</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Fecha del Cambio</th>
+                        <th class="p-4 font-label-sm text-label-sm uppercase tracking-wider text-secondary">Usuario BD</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="font-body-md text-sm divide-y divide-surface-container-highest">
+                    <tr>
+                        <td colspan="5" class="p-8 text-center text-secondary flex-col items-center justify-center">
+                            <span class="material-symbols-outlined text-4xl mb-2 animate-spin">progress_activity</span>
+                            <p>Cargando registros...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="bg-surface-container-low p-4 border-t border-surface-container-highest flex justify-between items-center text-sm text-secondary">
+            <span id="pageInfo">Mostrando 0 registros</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="w-full pb-gutter px-margin-mobile md:px-margin-desktop mt-auto">
+    <div class="w-full flex flex-col sm:flex-row items-center justify-between border-t border-surface-container-highest pt-unit gap-unit">
+      <span class="font-mono-metadata text-mono-metadata uppercase tracking-wider text-metadata-gray">URBAN KICKS INTERNAL PLATFORM // V2.4 // RESTRICTED ACCESS (SUPERADMIN)</span>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tableBody = document.getElementById("tableBody");
+        const pageInfo = document.getElementById("pageInfo");
+        const btnRefresh = document.getElementById("btnRefresh");
+        
+        // Obtener el JWT de la cookie
+        const getCookie = (name) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        };
+
+        const token = getCookie("uk_admin_token");
+        if (!token) {
+            window.location.href = "/admin/login";
+            return;
+        }
+
+        const fetchLogs = async () => {
+            try {
+                tableBody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-secondary"><span class="material-symbols-outlined text-4xl mb-2 animate-spin">progress_activity</span><p>Cargando registros...</p></td></tr>`;
+                
+                const response = await fetch("/api/v1/admin/auditoria/ordenes", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (response.status === 401 || response.status === 403) {
+                    tableBody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-error font-semibold"><span class="material-symbols-outlined text-4xl mb-2">lock</span><p>Acceso denegado. Se requiere rol SuperAdmin.</p></td></tr>`;
+                    return;
+                }
+
+                if (!response.ok) throw new Error("Error al obtener los logs");
+
+                const logs = await response.json();
+                renderTable(logs);
+            } catch (error) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-error font-semibold"><span class="material-symbols-outlined text-4xl mb-2">error</span><p>Error de conexión al cargar auditoría.</p></td></tr>`;
+            }
+        };
+
+        const renderTable = (logs) => {
+            tableBody.innerHTML = "";
+            
+            if (logs.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-secondary"><span class="material-symbols-outlined text-4xl mb-2 text-metadata-gray block mx-auto">history</span>Aún no hay modificaciones registradas en las órdenes.</td></tr>`;
+                pageInfo.textContent = "Mostrando 0 registros";
+                return;
+            }
+
+            logs.forEach(log => {
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-surface-container-low transition-colors";
+                
+                const formatDate = (dateStr) => {
+                    if (!dateStr) return 'N/A';
+                    const d = new Date(dateStr);
+                    return d.toLocaleDateString('es-CO') + ' ' + d.toLocaleTimeString('es-CO', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+                };
+
+                tr.innerHTML = `
+                    <td class="p-4 font-mono-metadata text-metadata-gray">LOG-${log.log_id}</td>
+                    <td class="p-4 font-semibold text-primary">#${log.orden_id}</td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-2 text-xs font-mono-metadata">
+                            <span class="bg-surface-container px-2 py-1 rounded text-secondary">${log.estado_anterior}</span>
+                            <span class="material-symbols-outlined text-xs text-metadata-gray">arrow_forward</span>
+                            <span class="bg-surface-container-highest px-2 py-1 rounded text-primary font-semibold">${log.estado_nuevo}</span>
+                        </div>
+                    </td>
+                    <td class="p-4 text-secondary">${formatDate(log.fecha_cambio)}</td>
+                    <td class="p-4 font-mono-metadata text-primary">${log.usuario_db}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+            
+            pageInfo.textContent = `Mostrando ${logs.length} registros`;
+        };
+
+        btnRefresh.addEventListener("click", fetchLogs);
+
+        // Fetch inicial
+        fetchLogs();
+    });
+  </script>
+</body>
+</html>
