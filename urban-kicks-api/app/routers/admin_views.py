@@ -148,3 +148,41 @@ def auditoria_ordenes_page(request: Request, uk_admin_token: str | None = Cookie
         "admin_auditoria.html",
         {"request": request, "username": username},
     )
+
+
+# ----------------------------------------------------------
+# GET /admin/productos — Ruta protegida, gestión de inventario
+# ----------------------------------------------------------
+@router.get("/admin/productos", response_class=HTMLResponse, include_in_schema=False)
+def productos_page(request: Request, uk_admin_token: str | None = Cookie(default=None)):
+    """
+    Renderiza la vista de gestión de catálogo e inventario.
+    Requiere JWT con rol GestorInventario o SuperAdmin.
+    """
+    if not uk_admin_token:
+        return RedirectResponse(url="/admin/login", status_code=302)
+
+    try:
+        payload = jwt.decode(
+            uk_admin_token,
+            settings.jwt_secret_key,
+            algorithms=[settings.jwt_algorithm],
+        )
+        username: str = payload.get("sub", "Admin")
+        roles = payload.get("roles", [])
+        roles_permitidos = {"SuperAdmin", "GestorInventario"}
+        if not set(roles).intersection(roles_permitidos):
+            return HTMLResponse(
+                "<h1>Acceso Denegado</h1><p>Solo usuarios con rol GestorInventario o SuperAdmin pueden gestionar productos.</p><a href='/admin/dashboard'>Volver al Dashboard</a>",
+                status_code=403,
+            )
+    except JWTError:
+        response = RedirectResponse(url="/admin/login", status_code=302)
+        response.delete_cookie("uk_admin_token")
+        return response
+
+    return templates.TemplateResponse(
+        "admin_productos.html",
+        {"request": request, "username": username, "roles": roles},
+    )
+

@@ -12,7 +12,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import productos, ordenes, auth, admin_views, admin_ordenes_api, admin_auditoria_api
+from app.routers import (
+    productos,
+    ordenes,
+    auth,
+    admin_views,
+    admin_ordenes_api,
+    admin_auditoria_api,
+    admin_productos_api,
+    storefront_views,
+)
 # -------------------------------------------------------
 # Creación de la instancia principal de FastAPI.
 # -------------------------------------------------------
@@ -60,17 +69,11 @@ app.include_router(ordenes.router,     prefix="/api/v1")
 app.include_router(auth.router,        prefix="/api/v1")
 app.include_router(admin_ordenes_api.router, prefix="/api/v1")
 app.include_router(admin_auditoria_api.router, prefix="/api/v1")
+app.include_router(admin_productos_api.router, prefix="/api/v1")
 
-# — Vistas HTML admin (sin prefijo — rutas: /admin/login, /admin/dashboard)
+# — Vistas HTML del Storefront público (usuarios comunes: ruta raíz /)
+app.include_router(storefront_views.router)
+
+# — Vistas HTML admin (sin prefijo — rutas: /admin/login, /admin/dashboard, /admin/productos)
 app.include_router(admin_views.router)
 
-
-# -------------------------------------------------------
-# Endpoint raíz: redirige al login del panel admin.
-# -------------------------------------------------------
-@app.get("/", include_in_schema=False)
-def root():
-    """
-    Redirige la raíz al panel de login de administración.
-    """
-    return RedirectResponse(url="/admin/login")

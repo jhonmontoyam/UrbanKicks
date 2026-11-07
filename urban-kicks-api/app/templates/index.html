@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>URBAN KICKS — Curado para la Calle // Sneakers & Streetwear Colombia</title>
+  <meta name="description" content="Urban Kicks Colombia. Curaduría exclusiva de sneakers de edición limitada, moda urbana contemporánea y drops auténticos en pesos colombianos (COP)." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/unpack-tailwindcss-3.4.17@3.4.17/dist/tailwindcss-3.4.17.min.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-low": "#f7f3f2",
+            "on-primary-container": "#858383",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#626361",
+            "on-primary-fixed": "#1c1b1b",
+            "on-tertiary": "#ffffff",
+            "tertiary": "#000000",
+            "outline": "#747878",
+            "on-error": "#ffffff",
+            "error": "#ba1a1a",
+            "surface-variant": "#e5e2e1",
+            "background": "#fdf8f8",
+            "surface": "#fdf8f8",
+            "acid-green": "#B8FF3D",
+            "neutral-gray": "#E5E5E5",
+            "outline-variant": "#c4c7c7",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#313030",
+            "surface-dim": "#ddd9d8",
+            "primary": "#000000",
+            "on-background": "#1c1b1b",
+            "on-surface": "#1c1b1b",
+            "metadata-gray": "#8C8C8C",
+            "surface-container-highest": "#e5e2e1",
+            "charcoal": "#1A1A1A",
+            "surface-container-high": "#ebe7e6",
+            "secondary": "#5e5e5d",
+            "surface-container": "#f1edec"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "unit": "8px",
+            "margin-mobile": "16px",
+            "gutter": "24px",
+            "margin-desktop": "48px"
+          },
+          fontFamily: {
+            "display-lg": ["Space Grotesk", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"],
+            "mono-metadata": ["Inter", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #fdf8f8;
+        color: #1A1A1A;
+      }
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Estilo sutil para scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f7f3f2;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c4c7c7;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #747878;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-charcoal font-body-md min-h-screen flex flex-col antialiased selection:bg-acid-green selection:text-primary">
+
+  <!-- ======================================================== -->
+  <!-- BARRA DE ANUNCIOS SUPERIOR (MARQUEE METADATA) -->
+  <!-- ======================================================== -->
+  <div class="w-full bg-charcoal text-white py-2 px-margin-mobile md:px-margin-desktop border-b border-white/10 flex items-center justify-between text-[11px] font-mono-metadata tracking-wider uppercase">
+    <div class="flex items-center gap-3">
+      <span class="w-2 h-2 rounded-full bg-acid-green animate-pulse"></span>
+      <span class="text-white/90">BOGOTÁ OPS // ENVIOS ASEGURADOS A TODA COLOMBIA</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-white/60">
+      <span>COORD: 4.6097° N, 74.0817° W</span>
+      <span class="text-acid-green font-semibold">PRECIOS EN PESOS COLOMBIANOS (COP)</span>
+      <a href="/admin/login" class="hover:text-white transition-colors flex items-center gap-1 text-white/50">
+        <span class="material-symbols-outlined text-xs">lock</span> STAFF ACCESS
+      </a>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- HEADER / NAVBAR PRINCIPAL (DESKTOP & MOBILE) -->
+  <!-- ======================================================== -->
+  <header class="sticky top-0 w-full bg-background/95 backdrop-blur-md z-40 border-b border-surface-container-highest transition-all duration-200">
+    <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-4 flex items-center justify-between">
+      
+      <!-- Logo y Marca -->
+      <div class="flex items-center gap-4">
+        <!-- Botón Menú Mobile -->
+        <button id="btnMobileMenu" class="md:hidden p-1 text-charcoal hover:text-black focus:outline-none">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+
+        <a href="/" class="flex flex-col">
+          <span class="font-display-lg font-bold text-2xl md:text-3xl tracking-tighter uppercase text-primary leading-none">
+            URBAN KICKS
+          </span>
+          <span class="font-mono-metadata text-[10px] tracking-widest text-metadata-gray uppercase mt-0.5">
+            STREETWEAR & SNEAKERS // COLOMBIA
+          </span>
+        </a>
+      </div>
+
+      <!-- Navegación Desktop -->
+      <nav class="hidden md:flex items-center gap-8 font-label-sm text-label-sm uppercase tracking-widest">
+        <button onclick="filtrarCategoria('TODOS')" class="nav-cat-btn text-primary font-bold border-b-2 border-primary pb-0.5 hover:text-primary transition-colors cursor-pointer" data-category="TODOS">
+          LATEST DROPS
+        </button>
+        <button onclick="filtrarCategoria('Zapatillas')" class="nav-cat-btn text-charcoal/70 hover:text-primary border-b-2 border-transparent pb-0.5 hover:border-charcoal/30 transition-colors cursor-pointer" data-category="Zapatillas">
+          SNEAKERS
+        </button>
+        <button onclick="filtrarCategoria('Ropa Urbana')" class="nav-cat-btn text-charcoal/70 hover:text-primary border-b-2 border-transparent pb-0.5 hover:border-charcoal/30 transition-colors cursor-pointer" data-category="Ropa Urbana">
+          APPAREL
+        </button>
+        <a href="#editorial" class="text-charcoal/70 hover:text-primary border-b-2 border-transparent pb-0.5 hover:border-charcoal/30 transition-colors cursor-pointer">
+          EDITORIAL
+        </a>
+      </nav>
+
+      <!-- Acciones de Usuario & Carrito -->
+      <div class="flex items-center gap-3 md:gap-4">
+        <!-- Buscador Rápido -->
+        <button id="btnToggleSearch" class="p-2 hover:bg-surface-container rounded-full transition-colors text-charcoal" title="Buscar en catálogo">
+          <span class="material-symbols-outlined text-xl">search</span>
+        </button>
+
+        <!-- Botón Carrito de Compras -->
+        <button id="btnOpenCart" class="relative p-2 bg-charcoal text-white hover:bg-black rounded transition-all flex items-center gap-1.5 px-3 shadow-sm group">
+          <span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">shopping_bag</span>
+          <span id="cartCountBadge" class="font-mono-metadata text-xs font-bold bg-acid-green text-charcoal px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+
+        <!-- Acceso Admin / Perfil -->
+        <a href="/admin/login" class="p-2 hover:bg-surface-container rounded-full transition-colors text-charcoal hidden sm:flex" title="Panel de Administración">
+          <span class="material-symbols-outlined text-xl">account_circle</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Barra de Búsqueda Desplegable -->
+    <div id="searchDropdown" class="hidden border-t border-surface-container-highest bg-surface-container-low px-margin-mobile md:px-margin-desktop py-3">
+      <div class="max-w-3xl mx-auto relative flex items-center">
+        <span class="material-symbols-outlined absolute left-3 text-metadata-gray text-xl">search</span>
+        <input type="text" id="storeSearchInput" placeholder="Buscar por silueta, marca (Adidas, Nike, Jordan) o prenda..." 
+               class="w-full bg-surface-container-lowest border border-surface-container-highest rounded pl-10 pr-10 py-2.5 text-sm font-body-md text-charcoal focus:outline-none focus:border-primary shadow-sm" />
+        <button id="btnClearSearch" class="absolute right-3 text-metadata-gray hover:text-charcoal text-xs font-mono-metadata uppercase">
+          ✕
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- MENÚ MOBILE (DRAWER LATERAL) -->
+  <!-- ======================================================== -->
+  <div id="mobileDrawer" class="fixed inset-0 bg-charcoal/60 z-50 hidden transition-opacity">
+    <div class="w-72 max-w-[85vw] h-full bg-background p-gutter flex flex-col justify-between shadow-2xl">
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-surface-container-highest pb-4">
+          <span class="font-display-lg font-bold text-xl uppercase tracking-tight text-primary">URBAN KICKS</span>
+          <button id="btnCloseMobileMenu" class="p-1 text-charcoal hover:text-black">
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 font-label-sm uppercase tracking-widest text-sm">
+          <button onclick="filtrarCategoria('TODOS'); closeMobileDrawer();" class="text-left py-2 border-b border-surface-container text-primary font-bold">
+            TODOS LOS DROPS
+          </button>
+          <button onclick="filtrarCategoria('Zapatillas'); closeMobileDrawer();" class="text-left py-2 border-b border-surface-container text-secondary hover:text-primary">
+            SNEAKERS / ZAPATILLAS
+          </button>
+          <button onclick="filtrarCategoria('Ropa Urbana'); closeMobileDrawer();" class="text-left py-2 border-b border-surface-container text-secondary hover:text-primary">
+            APPAREL / ROPA URBANA
+          </button>
+          <a href="#editorial" onclick="closeMobileDrawer();" class="py-2 text-secondary hover:text-primary">
+            EDITORIAL FW24
+          </a>
+        </nav>
+      </div>
+      <div class="border-t border-surface-container-highest pt-4 flex flex-col gap-2">
+        <a href="/admin/login" class="flex items-center gap-2 text-xs font-mono-metadata uppercase text-metadata-gray hover:text-charcoal">
+          <span class="material-symbols-outlined text-sm">lock</span> Acceso Administrativo
+        </a>
+        <span class="text-[10px] font-mono-metadata text-metadata-gray uppercase">COLOMBIA // COP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- HERO SECTION: MODERN URBAN EDITORIAL -->
+  <!-- ======================================================== -->
+  <section class="relative w-full h-[620px] md:h-[780px] bg-charcoal flex items-center justify-center overflow-hidden">
+    <!-- Fotografía Editorial de Fondo -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLPksHuQKCCT4ca4Ka50_-rJWLBiR7Axxmb9NTAugj9HL46YLaZjv1oljOD7sdkbGPqsWQSKuZ_MvSzwVCrCSviI4wPYVVKpOgayEGbZnI5Yei8FGJGldx7IbEO0FIbqVVc-wF3dJTYVoSz9H9eCQCPV0NTZL3PPgpguNFWJn0R5xTpNo-_B8gJ_Iu4Jq8uFQWEYtjDfYTi3GZGnpgOzLpwrFZLcDHs7V_FwGPEy41zS9oaEzT0-xYZw" 
+           alt="Editorial Streetwear Urban Kicks Bogotá" 
+           class="w-full h-full object-cover opacity-85 scale-105 animate-fade-in" />
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-charcoal/30 mix-blend-multiply"></div>
+    </div>
+
+    <!-- Contenido del Hero -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop flex flex-col justify-end h-full pb-16 md:pb-24">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 w-full">
+        
+        <div class="flex flex-col gap-4 max-w-3xl">
+          <div class="flex flex-wrap gap-3 items-center">
+            <span class="font-mono-metadata text-xs uppercase bg-acid-green text-charcoal px-3 py-1 font-bold tracking-wider">
+              FW24 / COLOMBIA
+            </span>
+            <span class="font-mono-metadata text-xs uppercase text-white/90 tracking-widest bg-white/10 backdrop-blur-sm px-3 py-1 rounded">
+              COORD: 4.6097° N, 74.0817° W
+            </span>
+            <span class="font-mono-metadata text-xs uppercase text-acid-green tracking-wider hidden sm:inline-block">
+              // SNEAKERS & STREETWEAR
+            </span>
+          </div>
+
+          <h1 class="font-display-lg text-[46px] leading-[1.05] md:text-[84px] lg:text-[96px] text-white uppercase tracking-tighter font-bold drop-shadow-md">
+            CURADO PARA<br /><span class="text-acid-green">LA CALLE</span>
+          </h1>
+
+          <p class="font-body-md text-white/80 text-base md:text-lg max-w-xl leading-relaxed">
+            Plataforma oficial de drops de zapatillas exclusivas y piezas de diseño urbano contemporáneo. Autenticidad verificada, envíos asegurados en Colombia.
+          </p>
+        </div>
+
+        <div class="flex flex-col items-start md:items-end gap-4 w-full md:w-auto">
+          <a href="#catalogo" class="bg-white text-charcoal font-label-sm text-sm uppercase px-8 py-4 tracking-widest hover:bg-acid-green hover:text-charcoal transition-all duration-300 font-bold group inline-flex items-center gap-3 shadow-lg active:scale-95">
+            <span>EXPLORAR COLECCIÓN</span>
+            <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_downward</span>
+          </a>
+          <span class="font-mono-metadata text-[11px] uppercase text-white/60 tracking-wider">
+            STOCK EN TIEMPO REAL // MONGODB NOSQL
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- BARRA DE VALOR AGREGADO / METADATA DE MARCA -->
+  <!-- ======================================================== -->
+  <section class="w-full bg-surface-container-low border-y border-surface-container-highest py-6 px-margin-mobile md:px-margin-desktop">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-metadata text-xs text-charcoal">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-xl">verified</span>
+        <div>
+          <strong class="block uppercase tracking-wider text-primary">100% Autenticidad</strong>
+          <span class="text-metadata-gray text-[11px]">Verificación directa por expertos</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-xl">local_shipping</span>
+        <div>
+          <strong class="block uppercase tracking-wider text-primary">Envíos Nacionales</strong>
+          <span class="text-metadata-gray text-[11px]">Asegurados a toda Colombia</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-xl">payments</span>
+        <div>
+          <strong class="block uppercase tracking-wider text-primary">Pesos Colombianos</strong>
+          <span class="text-metadata-gray text-[11px]">Sin cargos ocultos (COP)</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-xl">sync_alt</span>
+        <div>
+          <strong class="block uppercase tracking-wider text-primary">Cambios Fáciles</strong>
+          <span class="text-metadata-gray text-[11px]">30 días para cambio de talla</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- SECCIÓN PRINCIPAL: CATÁLOGO DE PRODUCTOS (MONGODB) -->
+  <!-- ======================================================== -->
+  <main class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24" id="catalogo">
+    
+    <!-- Encabezado de la Colección y Filtros -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-surface-container-highest pb-6">
+      <div class="flex flex-col gap-2">
+        <span class="font-mono-metadata text-xs uppercase tracking-widest text-metadata-gray">
+          COLECCIÓN DISPONIBLE // CATALOGO EN VIVO
+        </span>
+        <h2 class="font-display-lg text-3xl md:text-5xl uppercase tracking-tighter font-bold text-primary">
+          ÚLTIMOS DROPS
+        </h2>
+      </div>
+
+      <!-- Filtros por Categoría (Pills) -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="filtrarCategoria('TODOS')" 
+                class="filter-pill active px-4 py-2 rounded text-xs font-label-sm uppercase tracking-wider transition-all bg-primary text-white" 
+                data-category="TODOS">
+          Todos (<span id="countTodos">{{ productos|length }}</span>)
+        </button>
+        <button onclick="filtrarCategoria('Zapatillas')" 
+                class="filter-pill px-4 py-2 rounded text-xs font-label-sm uppercase tracking-wider transition-all bg-surface-container hover:bg-surface-container-high text-charcoal" 
+                data-category="Zapatillas">
+          Sneakers
+        </button>
+        <button onclick="filtrarCategoria('Ropa Urbana')" 
+                class="filter-pill px-4 py-2 rounded text-xs font-label-sm uppercase tracking-wider transition-all bg-surface-container hover:bg-surface-container-high text-charcoal" 
+                data-category="Ropa Urbana">
+          Apparel
+        </button>
+        <button onclick="filtrarCategoria('Accesorios')" 
+                class="filter-pill px-4 py-2 rounded text-xs font-label-sm uppercase tracking-wider transition-all bg-surface-container hover:bg-surface-container-high text-charcoal" 
+                data-category="Accesorios">
+          Accesorios
+        </button>
+      </div>
+    </div>
+
+    <!-- Indicador de resultados activos -->
+    <div class="flex items-center justify-between mb-8 text-xs font-mono-metadata text-metadata-gray">
+      <span id="catalogResultsCount">Mostrando {{ productos|length }} piezas seleccionadas</span>
+      <span class="uppercase">ORDENADO POR: RECIENTES</span>
+    </div>
+
+    <!-- GRID DE PRODUCTOS (DISEÑO EDITORIAL ASIMÉTRICO Y RESPONSIVE) -->
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+      {% for prod in productos %}
+      <article class="product-card group flex flex-col bg-surface-container-lowest border border-surface-container-highest rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-charcoal/30 cursor-pointer"
+               data-id="{{ prod._id }}"
+               data-category="{{ prod.categoria }}"
+               data-brand="{{ prod.marca.nombre }}"
+               data-name="{{ prod.nombre|lower }}"
+               onclick="abrirModalDetalle('{{ prod._id }}')">
+        
+        <!-- Contenedor Imagen con Badge Editorial -->
+        <div class="aspect-[4/5] bg-surface-container-high relative overflow-hidden">
+          <!-- Badges -->
+          <div class="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start">
+            <span class="font-mono-metadata text-[10px] uppercase bg-acid-green text-charcoal px-2 py-0.5 font-bold tracking-wider rounded">
+              NUEVO DROP
+            </span>
+            <span class="font-mono-metadata text-[10px] uppercase bg-primary text-white px-2 py-0.5 tracking-wider rounded">
+              {{ prod.marca.nombre }}
+            </span>
+          </div>
+
+          <!-- Imagen del Producto -->
+          {% if prod.imagenes and prod.imagenes|length > 0 %}
+          <img src="{{ prod.imagenes[0] }}" 
+               alt="{{ prod.nombre }}" 
+               loading="lazy"
+               onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.classList.remove('hidden');"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out mix-blend-multiply" />
+          <div class="hidden w-full h-full flex items-center justify-center bg-surface-container text-metadata-gray">
+            <span class="material-symbols-outlined text-4xl">inventory_2</span>
+          </div>
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center bg-surface-container text-metadata-gray">
+            <span class="material-symbols-outlined text-4xl">inventory_2</span>
+          </div>
+          {% endif %}
+
+          <!-- Hover Overlay con botón rápido -->
+          <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <button class="w-full py-2.5 bg-primary text-white font-label-sm text-xs uppercase tracking-widest flex items-center justify-center gap-2 rounded shadow-md hover:bg-neutral-900 transition-colors">
+              <span class="material-symbols-outlined text-sm">visibility</span>
+              <span>VER TALLAS Y COMPRAR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Información del Producto -->
+        <div class="p-5 flex flex-col flex-grow justify-between gap-3">
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center justify-between text-xs font-mono-metadata text-metadata-gray uppercase">
+              <span>{{ prod.categoria }}</span>
+              <span>ORIGEN: {{ prod.marca.paisOrigen }}</span>
+            </div>
+            <h3 class="font-display-lg text-lg uppercase font-semibold text-charcoal leading-snug group-hover:text-primary transition-colors">
+              {{ prod.nombre }}
+            </h3>
+            {% if prod.descripcion %}
+            <p class="font-body-md text-xs text-secondary line-clamp-2 mt-1">
+              {{ prod.descripcion }}
+            </p>
+            {% endif %}
+          </div>
+
+          <!-- Variantes y Precio -->
+          <div class="pt-3 border-t border-surface-container flex items-center justify-between mt-auto">
+            <!-- Tallas disponibles -->
+            <div class="flex flex-wrap gap-1 max-w-[60%]">
+              {% for v in prod.variantes[:3] %}
+              <span class="text-[10px] font-mono-metadata bg-surface-container px-1.5 py-0.5 rounded text-charcoal">
+                {{ v.talla }}
+              </span>
+              {% endfor %}
+              {% if prod.variantes|length > 3 %}
+              <span class="text-[10px] font-mono-metadata text-metadata-gray">
+                +{{ prod.variantes|length - 3 }}
+              </span>
+              {% endif %}
+            </div>
+
+            <!-- Precio en COP -->
+            <div class="text-right">
+              <span class="font-display-lg font-bold text-base text-primary">
+                {{ prod.precioBaseCop|cop }}
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </article>
+      {% endfor %}
+    </div>
+
+    <!-- Estado vacío de búsqueda -->
+    <div id="noResultsState" class="hidden py-16 text-center flex flex-col items-center justify-center gap-4">
+      <span class="material-symbols-outlined text-5xl text-metadata-gray">search_off</span>
+      <h3 class="font-display-lg text-xl uppercase font-bold text-charcoal">No se encontraron productos</h3>
+      <p class="font-body-md text-sm text-secondary max-w-md">
+        Prueba con otro término de búsqueda o limpia los filtros de categoría para ver todos los drops.
+      </p>
+      <button onclick="limpiarFiltros()" class="mt-2 px-6 py-2.5 bg-primary text-white font-label-sm text-xs uppercase tracking-wider rounded hover:bg-neutral-900 transition-colors">
+        Restablecer Catálogo
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- SECCIÓN EDITORIAL: HISTORIA & CULTURA STREETWEAR -->
+  <!-- ======================================================== -->
+  <section class="w-full bg-charcoal text-white py-20 px-margin-mobile md:px-margin-desktop border-t border-white/10" id="editorial">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-acid-green"></span>
+          <span class="font-mono-metadata text-xs uppercase tracking-widest text-acid-green font-bold">MANIFIESTO URBAN KICKS</span>
+        </div>
+        <h2 class="font-display-lg text-3xl md:text-5xl uppercase tracking-tighter font-bold leading-tight">
+          AUTENTICIDAD, DISEÑO Y CULTURA URBANA
+        </h2>
+        <p class="font-body-md text-white/70 text-base leading-relaxed">
+          Nacimos en el corazón de Colombia para conectar a la comunidad con los lanzamientos más codiciados del streetwear mundial. Cada par que ves en nuestra plataforma ha sido verificado meticulosamente para asegurar su origen, materiales y calidad impecable.
+        </p>
+        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 text-center">
+          <div>
+            <span class="block font-display-lg text-2xl font-bold text-acid-green">+5,000</span>
+            <span class="font-mono-metadata text-[10px] text-white/60 uppercase">Pares Entregados</span>
+          </div>
+          <div>
+            <span class="block font-display-lg text-2xl font-bold text-acid-green">100%</span>
+            <span class="font-mono-metadata text-[10px] text-white/60 uppercase">Garantía Auténtica</span>
+          </div>
+          <div>
+            <span class="block font-display-lg text-2xl font-bold text-acid-green">BOG-01</span>
+            <span class="font-mono-metadata text-[10px] text-white/60 uppercase">Hub Central</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="aspect-[4/3] bg-neutral-900 overflow-hidden rounded relative">
+        <img src="https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=1000&q=80" 
+             alt="Cultura Sneaker y Streetwear Colombia" 
+             class="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700" />
+        <div class="absolute bottom-4 left-4 font-mono-metadata text-xs uppercase bg-black/80 backdrop-blur-sm px-3 py-1 text-white border-l-2 border-acid-green">
+          BOGOTÁ EDITORIAL // EDICIÓN LIMITADA
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- MODAL DE DETALLE DEL PRODUCTO & SELECCIÓN DE TALLA -->
+  <!-- ======================================================== -->
+  <div id="modalProductDetail" class="fixed inset-0 bg-charcoal/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg max-w-3xl w-full p-6 md:p-8 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Botón Cerrar -->
+      <button onclick="cerrarModalDetalle()" class="absolute top-4 right-4 p-2 text-metadata-gray hover:text-charcoal transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        
+        <!-- Galería de Imagen -->
+        <div class="aspect-[4/5] bg-surface-container-high rounded overflow-hidden relative">
+          <img id="modalProductImg" src="" alt="" class="w-full h-full object-cover mix-blend-multiply" />
+          <span id="modalProductBrandBadge" class="absolute top-3 left-3 font-mono-metadata text-xs uppercase bg-primary text-white px-2.5 py-1 font-semibold rounded"></span>
+        </div>
+
+        <!-- Info y Formulario de Compra -->
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-1">
+            <span id="modalProductCategory" class="font-mono-metadata text-xs uppercase text-metadata-gray tracking-wider"></span>
+            <h2 id="modalProductTitle" class="font-display-lg text-2xl md:text-3xl uppercase font-bold text-primary leading-tight"></h2>
+            <div class="flex items-baseline gap-2 mt-2">
+              <span id="modalProductPrice" class="font-display-lg text-2xl font-bold text-primary"></span>
+              <span class="font-mono-metadata text-xs text-metadata-gray uppercase">COP (IVA INCLUIDO)</span>
+            </div>
+          </div>
+
+          <p id="modalProductDesc" class="font-body-md text-sm text-secondary leading-relaxed border-t border-surface-container pt-3"></p>
+
+          <!-- Selector de Talla / Variante -->
+          <div class="flex flex-col gap-2 pt-2">
+            <div class="flex items-center justify-between">
+              <label class="font-label-sm text-xs uppercase tracking-wider text-primary font-bold">Seleccionar Talla / Variante:</label>
+              <span id="modalVariantStockLabel" class="font-mono-metadata text-xs text-metadata-gray"></span>
+            </div>
+            <div id="modalVariantsPills" class="flex flex-wrap gap-2">
+              <!-- Renderizado dinámico de variantes -->
+            </div>
+          </div>
+
+          <!-- Color seleccionado -->
+          <div id="modalColorInfo" class="flex items-center gap-2 text-xs font-mono-metadata text-secondary">
+            <span>Color:</span>
+            <span id="modalColorDot" class="w-3 h-3 rounded-full border border-surface-container-highest inline-block"></span>
+            <span id="modalColorName" class="font-semibold text-charcoal"></span>
+          </div>
+
+          <!-- Cantidad y Botón de Añadir -->
+          <div class="flex items-center gap-4 pt-4 border-t border-surface-container">
+            <div class="flex items-center border border-surface-container-highest rounded bg-surface-container-low">
+              <button onclick="cambiarCantidadModal(-1)" class="px-3 py-2 text-charcoal hover:bg-surface-container text-sm font-bold">-</button>
+              <span id="modalQtyDisplay" class="px-3 py-2 font-mono-metadata text-sm font-bold min-w-[36px] text-center">1</span>
+              <button onclick="cambiarCantidadModal(1)" class="px-3 py-2 text-charcoal hover:bg-surface-container text-sm font-bold">+</button>
+            </div>
+
+            <button id="btnAddToCartModal" onclick="agregarAlCarritoDesdeModal()" 
+                    class="flex-1 py-3 px-6 bg-primary text-white hover:bg-charcoal font-label-sm text-xs uppercase tracking-widest flex items-center justify-center gap-2 rounded transition-all shadow-md group">
+              <span class="material-symbols-outlined text-base group-hover:scale-110 transition-transform">shopping_bag</span>
+              <span>AÑADIR A LA BOLSA</span>
+            </button>
+          </div>
+
+          <!-- Notificación rápida de añadido -->
+          <div id="modalAddedToast" class="hidden p-2 rounded bg-acid-green/30 border border-acid-green text-charcoal text-xs font-mono-metadata text-center">
+            ✓ ¡Producto añadido al carrito con éxito!
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- DRAWER LATERAL: CARRITO DE COMPRAS -->
+  <!-- ======================================================== -->
+  <div id="cartDrawer" class="fixed inset-0 bg-charcoal/60 z-50 hidden transition-opacity">
+    <div class="absolute right-0 top-0 w-full max-w-md h-full bg-surface-container-lowest p-6 flex flex-col justify-between shadow-2xl overflow-y-auto">
+      
+      <!-- Cabecera Carrito -->
+      <div>
+        <div class="flex items-center justify-between border-b border-surface-container-highest pb-4">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-xl">shopping_bag</span>
+            <h3 class="font-display-lg text-lg uppercase font-bold text-primary">BOLSA DE COMPRA</h3>
+          </div>
+          <button id="btnCloseCart" class="p-1 text-metadata-gray hover:text-charcoal">
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+
+        <!-- Lista de Items en Carrito -->
+        <div id="cartItemsList" class="flex flex-col gap-4 py-4 divide-y divide-surface-container">
+          <!-- Renderizado dinámico vía JS -->
+        </div>
+
+        <!-- Carrito Vacío -->
+        <div id="cartEmptyState" class="py-12 text-center flex flex-col items-center gap-3 text-metadata-gray">
+          <span class="material-symbols-outlined text-5xl">remove_shopping_cart</span>
+          <span class="font-mono-metadata text-xs uppercase tracking-wider">Tu bolsa de compra está vacía</span>
+          <button onclick="document.getElementById('cartDrawer').classList.add('hidden')" class="mt-2 text-xs font-label-sm uppercase tracking-wider text-primary border-b border-primary pb-0.5">
+            Explorar Colección
+          </button>
+        </div>
+      </div>
+
+      <!-- Resumen y Checkout -->
+      <div id="cartSummary" class="border-t border-surface-container-highest pt-4 flex flex-col gap-3">
+        <div class="flex items-center justify-between text-xs font-mono-metadata text-metadata-gray uppercase">
+          <span>Envío a Colombia:</span>
+          <span class="text-acid-green font-bold bg-charcoal px-2 py-0.5 rounded">GRATIS</span>
+        </div>
+        <div class="flex items-center justify-between font-display-lg text-lg font-bold text-primary border-t border-surface-container pt-2">
+          <span>TOTAL ESTIMADO:</span>
+          <span id="cartTotalDisplay">$0 COP</span>
+        </div>
+        <button onclick="iniciarCheckout()" class="w-full py-3.5 bg-primary text-white hover:bg-neutral-900 font-label-sm text-xs uppercase tracking-widest flex items-center justify-center gap-2 rounded shadow-md transition-colors">
+          <span>FINALIZAR COMPRA (COP)</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </button>
+        <span class="font-mono-metadata text-[10px] text-center text-metadata-gray uppercase">
+          Transacción segura // Encriptación TLS 1.3
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL DE CHECKOUT SIMULADO -->
+  <!-- ======================================================== -->
+  <div id="modalCheckout" class="fixed inset-0 bg-charcoal/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-surface-container-lowest border border-surface-container-highest rounded-lg max-w-md w-full p-6 shadow-2xl flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-surface-container-highest pb-3">
+        <h3 class="font-display-lg text-lg uppercase font-bold text-primary">CONFIRMACIÓN DE ORDEN</h3>
+        <button onclick="document.getElementById('modalCheckout').classList.add('hidden')" class="text-metadata-gray hover:text-charcoal">
+          <span class="material-symbols-outlined text-lg">close</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-3 text-sm font-body-md text-charcoal">
+        <p>Gracias por tu interés en <strong>Urban Kicks Colombia</strong>.</p>
+        <p class="text-xs text-secondary leading-relaxed">
+          Esta plataforma universitaria conecta el catálogo en <strong>MongoDB</strong> con el motor transaccional de órdenes en <strong>Microsoft SQL Server</strong> mediante la API REST.
+        </p>
+        <div class="p-3 bg-surface-container-low rounded border border-surface-container text-xs font-mono-metadata flex flex-col gap-1">
+          <span class="text-primary font-bold uppercase">Resumen de la Bolsa:</span>
+          <span id="checkoutSummaryText">Total: $0 COP</span>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-surface-container-highest">
+        <button onclick="vaciarCarritoYConfirmar()" class="w-full py-2.5 bg-primary text-white hover:bg-neutral-900 font-label-sm text-xs uppercase tracking-widest rounded text-center">
+          Procesar con Mock Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- FOOTER EDITORIAL -->
+  <!-- ======================================================== -->
+  <footer class="w-full bg-surface-container-low border-t border-surface-container-highest mt-auto pt-16 pb-12 px-margin-mobile md:px-margin-desktop">
+    <div class="max-w-7xl mx-auto flex flex-col gap-12">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Columna Marca -->
+        <div class="flex flex-col gap-3 md:col-span-2">
+          <span class="font-display-lg font-bold text-2xl uppercase tracking-tight text-primary">URBAN KICKS</span>
+          <p class="font-body-md text-sm text-secondary max-w-sm leading-relaxed">
+            Plataforma independiente colombiana de moda urbana y cultura sneaker. Curaduría exclusiva, Drops oficiales y garantía total.
+          </p>
+          <span class="font-mono-metadata text-xs text-metadata-gray uppercase">
+            BOGOTÁ, COLOMBIA // PESOS COLOMBIANOS (COP)
+          </span>
+        </div>
+
+        <!-- Columna Colecciones -->
+        <div class="flex flex-col gap-3 text-xs font-mono-metadata uppercase">
+          <span class="font-bold text-primary tracking-wider">COLECCIÓN</span>
+          <button onclick="filtrarCategoria('Zapatillas')" class="text-left text-secondary hover:text-primary transition-colors">Sneakers Exclusivos</button>
+          <button onclick="filtrarCategoria('Ropa Urbana')" class="text-left text-secondary hover:text-primary transition-colors">Streetwear Apparel</button>
+          <a href="#editorial" class="text-secondary hover:text-primary transition-colors">Editorial FW24</a>
+          <a href="/docs" target="_blank" class="text-secondary hover:text-primary transition-colors">Documentación API</a>
+        </div>
+
+        <!-- Columna Operaciones y Acceso Staff -->
+        <div class="flex flex-col gap-3 text-xs font-mono-metadata uppercase">
+          <span class="font-bold text-primary tracking-wider">OPERACIONES</span>
+          <a href="/admin/login" class="text-secondary hover:text-primary transition-colors flex items-center gap-1 font-semibold text-primary">
+            <span class="material-symbols-outlined text-sm">admin_panel_settings</span>
+            <span>Panel Administrativo</span>
+          </a>
+          <span class="text-metadata-gray">Roles: SuperAdmin, GestorInventario, Vendedor</span>
+          <span class="text-metadata-gray">T-SQL Stored Procedures + MongoDB</span>
+        </div>
+      </div>
+
+      <!-- Copyright y Licencia -->
+      <div class="border-t border-surface-container-highest pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-metadata text-metadata-gray uppercase">
+        <span>© 2024-2026 URBAN KICKS COLOMBIA. ALL RIGHTS RESERVED.</span>
+        <div class="flex items-center gap-4">
+          <span>ENVÍOS NACIONALES 100% ASEGURADOS</span>
+          <span>•</span>
+          <span>BOG-01 NODE</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- SCRIPT CLIENTE: CATÁLOGO, FILTROS, MODALES Y CARRITO -->
+  <!-- ======================================================== -->
+  <script>
+    // Datos completos inyectados por Jinja2
+    const ALL_PRODUCTS = {{ productos|safe_json|safe }};
+    
+    // Estado del carrito en LocalStorage
+    let CART = JSON.parse(localStorage.getItem("uk_cart") || "[]");
+    let currentSelectedModalProduct = null;
+    let currentSelectedVariantSku = null;
+    let modalQuantity = 1;
+
+    const formatCurrency = (val) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(val);
+
+    // 1. Manejo del Carrito
+    function saveCart() {
+      localStorage.setItem("uk_cart", JSON.stringify(CART));
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalItems = CART.reduce((acc, item) => acc + item.cantidad, 0);
+      const totalCop = CART.reduce((acc, item) => acc + (item.precioUnitarioCop * item.cantidad), 0);
+
+      // Actualizar badge
+      document.getElementById("cartCountBadge").textContent = totalItems;
+
+      // Actualizar drawer
+      const listContainer = document.getElementById("cartItemsList");
+      const emptyState = document.getElementById("cartEmptyState");
+      const summaryBox = document.getElementById("cartSummary");
+      const totalDisplay = document.getElementById("cartTotalDisplay");
+
+      if (CART.length === 0) {
+        listContainer.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        summaryBox.classList.add("hidden");
+        totalDisplay.textContent = "$0 COP";
+      } else {
+        emptyState.classList.add("hidden");
+        summaryBox.classList.remove("hidden");
+        totalDisplay.textContent = formatCurrency(totalCop);
+
+        listContainer.innerHTML = "";
+        CART.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "flex gap-3 items-center py-2";
+          div.innerHTML = `
+            <div class="w-16 h-16 rounded bg-surface-container flex-shrink-0 overflow-hidden border border-surface-container-highest">
+              <img src="${item.imagen || ''}" alt="${item.nombre}" class="w-full h-full object-cover mix-blend-multiply" />
+            </div>
+            <div class="flex-grow flex flex-col">
+              <span class="font-display-lg text-xs uppercase font-bold text-charcoal leading-tight">${item.nombre}</span>
+              <span class="font-mono-metadata text-[11px] text-metadata-gray">Talla: ${item.talla} (${item.color})</span>
+              <span class="font-mono-metadata text-xs font-semibold text-primary mt-1">${formatCurrency(item.precioUnitarioCop)}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center border border-surface-container-highest rounded text-xs">
+                <button onclick="modificarCantidadItem(${index}, -1)" class="px-2 py-0.5 hover:bg-surface-container">-</button>
+                <span class="px-2 font-mono-metadata">${item.cantidad}</span>
+                <button onclick="modificarCantidadItem(${index}, 1)" class="px-2 py-0.5 hover:bg-surface-container">+</button>
+              </div>
+              <button onclick="eliminarItemCarrito(${index})" class="text-metadata-gray hover:text-error p-1">
+                <span class="material-symbols-outlined text-base">delete</span>
+              </button>
+            </div>
+          `;
+          listContainer.appendChild(div);
+        });
+      }
+    }
+
+    function modificarCantidadItem(index, delta) {
+      if (!CART[index]) return;
+      CART[index].cantidad += delta;
+      if (CART[index].cantidad <= 0) {
+        CART.splice(index, 1);
+      }
+      saveCart();
+    }
+
+    function eliminarItemCarrito(index) {
+      CART.splice(index, 1);
+      saveCart();
+    }
+
+    // 2. Filtros de Categoría y Búsqueda
+    function filtrarCategoria(categoria) {
+      // Actualizar estilos de los botones
+      document.querySelectorAll(".filter-pill").forEach(btn => {
+        if (btn.dataset.category === categoria) {
+          btn.className = "filter-pill active px-4 py-2 rounded text-xs font-label-sm uppercase tracking-wider transition-all bg-primary text-white";
+        } else {
+          btn.className = "filter-pill px-4 py-2 rounded text-xs font-label-sm uppercase tracking-wider transition-all bg-surface-container hover:bg-surface-container-high text-charcoal";
+        }
+      });
+
+      document.querySelectorAll(".nav-cat-btn").forEach(btn => {
+        if (btn.dataset.category === categoria) {
+          btn.className = "nav-cat-btn text-primary font-bold border-b-2 border-primary pb-0.5 transition-colors cursor-pointer";
+        } else {
+          btn.className = "nav-cat-btn text-charcoal/70 hover:text-primary border-b-2 border-transparent pb-0.5 hover:border-charcoal/30 transition-colors cursor-pointer";
+        }
+      });
+
+      aplicarFiltrosYBusqueda(categoria, document.getElementById("storeSearchInput").value);
+    }
+
+    function aplicarFiltrosYBusqueda(categoriaActiva, query) {
+      const cleanQuery = query.toLowerCase().trim();
+      const cards = document.querySelectorAll(".product-card");
+      let visibles = 0;
+
+      cards.forEach(card => {
+        const cat = card.dataset.category;
+        const brand = card.dataset.brand.toLowerCase();
+        const name = card.dataset.name;
+
+        const matchesCat = (categoriaActiva === "TODOS" || cat === categoriaActiva);
+        const matchesQuery = (!cleanQuery || name.includes(cleanQuery) || brand.includes(cleanQuery));
+
+        if (matchesCat && matchesQuery) {
+          card.classList.remove("hidden");
+          card.classList.add("flex");
+          visibles++;
+        } else {
+          card.classList.add("hidden");
+          card.classList.remove("flex");
+        }
+      });
+
+      document.getElementById("catalogResultsCount").textContent = `Mostrando ${visibles} piezas seleccionadas`;
+      
+      const noResults = document.getElementById("noResultsState");
+      if (visibles === 0) {
+        noResults.classList.remove("hidden");
+      } else {
+        noResults.classList.add("hidden");
+      }
+    }
+
+    function limpiarFiltros() {
+      document.getElementById("storeSearchInput").value = "";
+      filtrarCategoria("TODOS");
+    }
+
+    // 3. Modal de Detalle y Selección de Tallas
+    function abrirModalDetalle(productId) {
+      const prod = ALL_PRODUCTS.find(p => p._id === productId);
+      if (!prod) return;
+
+      currentSelectedModalProduct = prod;
+      modalQuantity = 1;
+      document.getElementById("modalQtyDisplay").textContent = "1";
+      document.getElementById("modalAddedToast").classList.add("hidden");
+
+      document.getElementById("modalProductTitle").textContent = prod.nombre;
+      document.getElementById("modalProductBrandBadge").textContent = prod.marca.nombre;
+      document.getElementById("modalProductCategory").textContent = `${prod.categoria} // ORIGEN: ${prod.marca.paisOrigen}`;
+      document.getElementById("modalProductPrice").textContent = formatCurrency(prod.precioBaseCop);
+      document.getElementById("modalProductDesc").textContent = prod.descripcion || "Edición especial disponible en catálogo oficial.";
+      document.getElementById("modalProductImg").src = (prod.imagenes && prod.imagenes.length > 0) ? prod.imagenes[0] : "";
+
+      // Renderizar variantes
+      const pillsContainer = document.getElementById("modalVariantsPills");
+      pillsContainer.innerHTML = "";
+
+      if (prod.variantes && prod.variantes.length > 0) {
+        currentSelectedVariantSku = prod.variantes[0].sku;
+        
+        prod.variantes.forEach((v, idx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          const isSelected = idx === 0;
+          btn.className = isSelected 
+            ? "variant-pill px-3 py-1.5 rounded border text-xs font-mono-metadata uppercase bg-primary text-white border-primary"
+            : "variant-pill px-3 py-1.5 rounded border text-xs font-mono-metadata uppercase bg-surface-container border-surface-container-highest text-charcoal hover:border-primary";
+          btn.textContent = `${v.talla}`;
+          btn.onclick = () => seleccionarVarianteModal(v.sku);
+          pillsContainer.appendChild(btn);
+        });
+
+        actualizarInfoVariante(prod.variantes[0]);
+      }
+
+      const modal = document.getElementById("modalProductDetail");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function seleccionarVarianteModal(sku) {
+      currentSelectedVariantSku = sku;
+      const variante = currentSelectedModalProduct.variantes.find(v => v.sku === sku);
+      if (!variante) return;
+
+      // Actualizar estilos de los botones de variante
+      document.querySelectorAll(".variant-pill").forEach(btn => {
+        if (btn.textContent.trim() === variante.talla) {
+          btn.className = "variant-pill px-3 py-1.5 rounded border text-xs font-mono-metadata uppercase bg-primary text-white border-primary";
+        } else {
+          btn.className = "variant-pill px-3 py-1.5 rounded border text-xs font-mono-metadata uppercase bg-surface-container border-surface-container-highest text-charcoal hover:border-primary";
+        }
+      });
+
+      actualizarInfoVariante(variante);
+    }
+
+    function actualizarInfoVariante(v) {
+      const stockLabel = document.getElementById("modalVariantStockLabel");
+      if (v.stock > 0) {
+        stockLabel.textContent = `Stock disponible: ${v.stock} unids`;
+        stockLabel.className = "font-mono-metadata text-xs text-charcoal";
+        document.getElementById("btnAddToCartModal").disabled = false;
+        document.getElementById("btnAddToCartModal").classList.remove("opacity-50", "cursor-not-allowed");
+      } else {
+        stockLabel.textContent = `Agotado temporalmente`;
+        stockLabel.className = "font-mono-metadata text-xs text-error font-semibold";
+        document.getElementById("btnAddToCartModal").disabled = true;
+        document.getElementById("btnAddToCartModal").classList.add("opacity-50", "cursor-not-allowed");
+      }
+
+      if (v.color) {
+        document.getElementById("modalColorDot").style.backgroundColor = v.color.hex || "#000000";
+        document.getElementById("modalColorName").textContent = v.color.nombre || "Estándar";
+      }
+    }
+
+    function cambiarCantidadModal(delta) {
+      modalQuantity = Math.max(1, modalQuantity + delta);
+      document.getElementById("modalQtyDisplay").textContent = modalQuantity;
+    }
+
+    function agregarAlCarritoDesdeModal() {
+      if (!currentSelectedModalProduct || !currentSelectedVariantSku) return;
+
+      const variante = currentSelectedModalProduct.variantes.find(v => v.sku === currentSelectedVariantSku);
+      if (!variante) return;
+
+      // Comprobar si ya está en el carrito
+      const existing = CART.find(item => item.sku === currentSelectedVariantSku);
+      if (existing) {
+        existing.cantidad += modalQuantity;
+      } else {
+        CART.push({
+          productId: currentSelectedModalProduct._id,
+          sku: variante.sku,
+          nombre: currentSelectedModalProduct.nombre,
+          talla: variante.talla,
+          color: variante.color?.nombre || "Estándar",
+          precioUnitarioCop: currentSelectedModalProduct.precioBaseCop + (variante.precioAdicionalCop || 0),
+          imagen: (currentSelectedModalProduct.imagenes && currentSelectedModalProduct.imagenes.length > 0) ? currentSelectedModalProduct.imagenes[0] : "",
+          cantidad: modalQuantity
+        });
+      }
+
+      saveCart();
+
+      const toast = document.getElementById("modalAddedToast");
+      toast.classList.remove("hidden");
+      setTimeout(() => {
+        toast.classList.add("hidden");
+        cerrarModalDetalle();
+        // Abrir automáticamente el drawer del carrito para feedback inmediato
+        document.getElementById("cartDrawer").classList.remove("hidden");
+      }, 600);
+    }
+
+    function cerrarModalDetalle() {
+      const modal = document.getElementById("modalProductDetail");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    // 4. Checkout Simulado
+    function iniciarCheckout() {
+      document.getElementById("cartDrawer").classList.add("hidden");
+      const totalCop = CART.reduce((acc, item) => acc + (item.precioUnitarioCop * item.cantidad), 0);
+      document.getElementById("checkoutSummaryText").textContent = `Artículos: ${CART.length} | Total: ${formatCurrency(totalCop)}`;
+      document.getElementById("modalCheckout").classList.remove("hidden");
+      document.getElementById("modalCheckout").classList.add("flex");
+    }
+
+    function vaciarCarritoYConfirmar() {
+      CART = [];
+      saveCart();
+      document.getElementById("modalCheckout").classList.add("hidden");
+      alert("¡Orden simulada creada con éxito! El pedido ha sido registrado en la arquitectura de Urban Kicks.");
+    }
+
+    // 5. Drawer Mobile
+    function closeMobileDrawer() {
+      document.getElementById("mobileDrawer").classList.add("hidden");
+    }
+
+    // Eventos DOM
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCartUI();
+
+      // Buscador
+      const btnToggleSearch = document.getElementById("btnToggleSearch");
+      const searchDropdown = document.getElementById("searchDropdown");
+      const storeSearchInput = document.getElementById("storeSearchInput");
+      const btnClearSearch = document.getElementById("btnClearSearch");
+
+      btnToggleSearch.onclick = () => {
+        searchDropdown.classList.toggle("hidden");
+        if (!searchDropdown.classList.contains("hidden")) {
+          storeSearchInput.focus();
+        }
+      };
+
+      btnClearSearch.onclick = () => {
+        storeSearchInput.value = "";
+        aplicarFiltrosYBusqueda("TODOS", "");
+      };
+
+      storeSearchInput.oninput = (e) => {
+        // Encontrar la categoría activa
+        const activeBtn = document.querySelector(".filter-pill.active");
+        const cat = activeBtn ? activeBtn.dataset.category : "TODOS";
+        aplicarFiltrosYBusqueda(cat, e.target.value);
+      };
+
+      // Carrito Drawer
+      const btnOpenCart = document.getElementById("btnOpenCart");
+      const btnCloseCart = document.getElementById("btnCloseCart");
+      const cartDrawer = document.getElementById("cartDrawer");
+
+      btnOpenCart.onclick = () => cartDrawer.classList.remove("hidden");
+      btnCloseCart.onclick = () => cartDrawer.classList.add("hidden");
+      cartDrawer.onclick = (e) => {
+        if (e.target === cartDrawer) cartDrawer.classList.add("hidden");
+      };
+
+      // Mobile Menu
+      const btnMobileMenu = document.getElementById("btnMobileMenu");
+      const btnCloseMobileMenu = document.getElementById("btnCloseMobileMenu");
+      const mobileDrawer = document.getElementById("mobileDrawer");
+
+      btnMobileMenu.onclick = () => mobileDrawer.classList.remove("hidden");
+      btnCloseMobileMenu.onclick = () => mobileDrawer.classList.add("hidden");
+      mobileDrawer.onclick = (e) => {
+        if (e.target === mobileDrawer) mobileDrawer.classList.add("hidden");
+      };
+    });
+  </script>
+</body>
+</html>

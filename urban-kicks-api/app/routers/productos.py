@@ -84,3 +84,29 @@ async def buscar_productos(
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error en búsqueda de texto: {str(e)}")
+
+
+@router.get(
+    "/{producto_id}",
+    response_model=ProductoDetalle,
+    summary="Detalle de producto",
+    description="Retorna la información completa de un producto por su ObjectId de MongoDB."
+)
+async def obtener_detalle_producto(producto_id: str):
+    from bson import ObjectId
+    if not ObjectId.is_valid(producto_id):
+        raise HTTPException(status_code=400, detail="Identificador de producto inválido.")
+
+    try:
+        db = get_mongo_db()
+        producto = await db["productos"].find_one({"_id": ObjectId(producto_id), "activo": True})
+        if not producto:
+            raise HTTPException(status_code=404, detail="Producto no encontrado o inactivo.")
+
+        producto["_id"] = str(producto["_id"])
+        return producto
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error consultando el producto: {str(e)}")
+
